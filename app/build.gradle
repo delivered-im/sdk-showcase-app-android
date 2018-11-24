@@ -80,6 +80,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation 'im.delivered.sdk:all:0.+'
+    implementation 'im.delivered.sdk:fcm-extension:0.+'
 }
 
 apply plugin: 'com.google.gms.google-services'

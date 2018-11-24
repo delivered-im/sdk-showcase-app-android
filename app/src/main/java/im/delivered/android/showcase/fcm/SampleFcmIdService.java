@@ -20,9 +20,11 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class SampleFcmIdService /*extends DeliveredFcmIdService*/ {
+import im.delivered.fcm.DeliveredFcmIdService;
 
-    /*private static final String TAG = "SampleFcmIdService";
+public class SampleFcmIdService extends DeliveredFcmIdService {
+
+    private static final String TAG = "SampleFcmIdService";
 
     @Override
     public void onTokenRefresh() {
@@ -35,5 +37,5 @@ public class SampleFcmIdService /*extends DeliveredFcmIdService*/ {
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
-    }*/
+    }
 }

@@ -20,15 +20,17 @@ import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
 
-public class SampleFcmService /*extends DeliveredFcmService*/ {
+import im.delivered.fcm.DeliveredFcmService;
+
+public class SampleFcmService extends DeliveredFcmService {
 
     private static final String TAG = "SampleFcmService";
 
-    /*@Override
+    @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         Log.d(TAG, "From: " + remoteMessage.toString());
 
         // Your custom push handling here if needed
-    }*/
+    }
 }
