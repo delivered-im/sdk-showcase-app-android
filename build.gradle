@@ -1,0 +1,19 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://maven.delivered.im" }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.google.gms:google-services:4.0.2'
+        classpath 'im.delivered.gradle.sdk:delivered-gradle:0.+'
+    }
+}
+
+repositories {
+    google()
+}

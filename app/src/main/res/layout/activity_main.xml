@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) Delivered Oy
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="im.delivered.android.showcase.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/DeliveredTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/DeliveredTheme.PopupOverlay"
+            app:titleMarginStart="24dp"
+            app:titleTextColor="@color/dlvrd_delivered_purple" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom"
+                android:background="@color/dlvrd_delivered_purple_light" />
+
+            <im.delivered.android.showcase.pager.MainTabLayout
+                android:id="@+id/main_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/dlvrd_delivered_purple"
+                app:tabIndicatorHeight="3dp"
+                app:tabMode="fixed" />
+
+        </FrameLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white" />
+
+    </LinearLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_action_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:fab_addButtonColorNormal="@color/dlvrd_delivered_brand_main_color"
+        app:fab_addButtonColorPressed="@color/dlvrd_delivered_accent_color"
+        app:fab_addButtonPlusIconColor="@android:color/white"
+        app:fab_addButtonSize="normal"
+        app:fab_labelStyle="@style/FloatingActionMenuStyle">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create_new_chat_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:fab_colorNormal="@color/dlvrd_delivered_brand_main_color"
+            app:fab_colorPressed="@color/dlvrd_delivered_accent_color"
+            app:fab_icon="@drawable/dlvrd_ic_chat_white_24dp"
+            app:fab_size="mini"
+            app:fab_title="Create new chat" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/search_public_chats_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/dlvrd_delivered_accent_color"
+            app:fab_colorNormal="@color/dlvrd_delivered_brand_main_color"
+            app:fab_colorPressed="@color/dlvrd_delivered_accent_color"
+            app:fab_icon="@drawable/ic_search_white_24px"
+            app:fab_size="mini"
+            app:fab_title="Discover chats" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</android.support.design.widget.CoordinatorLayout>
