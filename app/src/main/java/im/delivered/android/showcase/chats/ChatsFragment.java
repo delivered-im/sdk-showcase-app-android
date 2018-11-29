@@ -19,9 +19,9 @@ package im.delivered.android.showcase.chats;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.text.InputType;
 import android.view.Menu;
@@ -29,14 +29,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import im.delivered.android.showcase.R;
-import im.delivered.android.showcase.conversation.ConversationActivity;
 import im.delivered.ui.chat.ChatListFragment;
 import im.delivered.ui.chat.callbacks.OnChatClickListener;
 import im.delivered.ui.chat.callbacks.OnProfileAvatarClickListener;
 import im.delivered.ui.chat.create.CreateChatActivity;
-
-import static im.delivered.ui.conversation.DeliveredConversationFragment.EXTRA_CHAT_ID;
-import static im.delivered.ui.conversation.DeliveredConversationFragment.EXTRA_CHAT_NAME;
 
 public class ChatsFragment extends ChatListFragment
         implements OnChatClickListener, OnProfileAvatarClickListener {
@@ -53,24 +49,15 @@ public class ChatsFragment extends ChatListFragment
     }
 
     @Override
-    public void onChatClick(@NonNull String chatId, String chatName) {
-        final Activity activity = getActivity();
-        if (activity != null) {
-            final Intent intent = new Intent(activity, ConversationActivity.class);
-            intent.putExtra(EXTRA_CHAT_ID, chatId);
-            intent.putExtra(EXTRA_CHAT_NAME, chatName);
-            startActivity(intent);
-        }
+    public boolean onChatClick(@NonNull String chatId, @Nullable String chatName) {
+        //put your custom code
+        return true;
     }
 
     @Override
-    public void onProfileAvatarClick(@NonNull String chatId) {
-        final Activity activity = getActivity();
-        if (activity != null) {
-            final Intent intent = new Intent(activity, ChatProfileActivity.class);
-            intent.putExtra(EXTRA_CHAT_ID, chatId);
-            startActivity(intent);
-        }
+    public boolean onProfileAvatarClick(@NonNull String chatId) {
+        //put your custom code here
+        return true;
     }
 
     @Override

@@ -18,7 +18,9 @@ package im.delivered.android.showcase;
 
 import android.app.Application;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 
+import im.delivered.InAppNavigation;
 import im.delivered.android.showcase.conversation.ConversationActivity;
 import im.delivered.sdk.DeliveredSdk;
 
@@ -31,12 +33,14 @@ public class BaseApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        DeliveredSdk.setNavigation((chatId, chatName) -> {
-                    final Intent intent = new Intent(this, ConversationActivity.class);
-                    intent.putExtra(EXTRA_CHAT_ID, chatId);
-                    intent.putExtra(EXTRA_CHAT_NAME, chatName);
-                    startActivity(intent);
-                }
-        );
+        DeliveredSdk.setNavigation(new InAppNavigation() {
+            @Override
+            public void openChat(@NonNull String chatId, @NonNull String chatName) {
+                final Intent intent = new Intent(getApplicationContext(), ConversationActivity.class);
+                intent.putExtra(EXTRA_CHAT_ID, chatId);
+                intent.putExtra(EXTRA_CHAT_NAME, chatName);
+                startActivity(intent);
+            }
+        });
     }
 }

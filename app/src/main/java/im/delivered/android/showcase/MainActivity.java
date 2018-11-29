@@ -31,12 +31,12 @@ import android.view.View;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import im.delivered.android.showcase.chats.PublicChatListActivity;
 import im.delivered.android.showcase.pager.MainPagerAdapter;
 import im.delivered.android.showcase.pager.MainTabLayout;
 import im.delivered.android.showcase.settings.SettingsActivity;
 import im.delivered.config.DeliveredConfig;
 import im.delivered.ui.chat.create.CreateChatActivity;
+import im.delivered.ui.chat.search.ChatSearchActivity;
 
 import static im.delivered.android.showcase.pager.MainTabLayout.INDEX_TAB_CHATS;
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.create_new_chat_fab);
 
         searchPublicChatsFab.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, PublicChatListActivity.class)));
+                startActivity(new Intent(MainActivity.this, ChatSearchActivity.class)));
         createNewChatFab.setOnClickListener(v ->
                 startActivity(CreateChatActivity.newInstance(this)));
 

@@ -22,7 +22,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import im.delivered.android.showcase.MainActivity;
 import im.delivered.android.showcase.chats.ChatsFragment;
-import im.delivered.android.showcase.requests.RequestsFragment;
+import im.delivered.ui.chat.invites.InvitesListFragment;
 import im.delivered.ui.user.contact.ContactFragment;
 import im.delivered.ui.user.profile.MyProfileFragment;
 
@@ -43,7 +43,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
             case MainTabLayout.INDEX_TAB_CHATS:
                 return new ChatsFragment();
             case MainTabLayout.INDEX_TAB_REQUESTS:
-                return new RequestsFragment();
+                return InvitesListFragment.newInstance();
             case MainTabLayout.INDEX_TAB_FRIENDS:
                 return ContactFragment.newInstance();
             case MainTabLayout.INDEX_TAB_ME:

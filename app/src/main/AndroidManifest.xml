@@ -71,10 +71,6 @@
             android:name="im.delivered.android.showcase.settings.RegisteredDevicesActivity"
             android:theme="@style/DeliveredTheme.App.NoActionBar" />
 
-        <activity
-            android:name=".chats.ChatProfileActivity"
-            android:theme="@style/DeliveredTheme.App.NoActionBar" />
-
         <service
             android:name="im.delivered.android.showcase.AuthenticationService"
             android:exported="false" />
@@ -91,14 +87,6 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name="im.delivered.android.showcase.chats.PublicChatListActivity"
-            android:label="@string/title_activity_public_chat_list"
-            android:theme="@style/DeliveredTheme.App">
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/chats_search_searchable" />
-        </activity>
     </application>
 
 </manifest>
