@@ -37,6 +37,14 @@ import android.widget.Toast;
 import static im.delivered.android.showcase.AuthenticationService.KEY_AUTH_ERROR;
 import static im.delivered.android.showcase.Constants.REQUEST_CODE_REGISTER;
 
+
+/**
+ * Activity used to handle the input of users who wish to
+ * login with their existing credentials.
+ *
+ * For more information about authentication with the Delivered SDK visit:
+ * https://docs.delivered.im/android/secure-registration.html
+ */
 public class LoginActivity extends AccountAuthenticatorActivity {
 
     private EditText mUserEmailInputView;

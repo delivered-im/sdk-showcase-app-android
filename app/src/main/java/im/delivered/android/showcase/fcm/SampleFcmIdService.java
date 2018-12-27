@@ -22,6 +22,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import im.delivered.fcm.DeliveredFcmIdService;
 
+/**
+ * For detailed instructions on how to enable push with the Delivered SDK, visit:
+ * https://docs.delivered.im/android/push-notifications.html
+ */
 public class SampleFcmIdService extends DeliveredFcmIdService {
 
     private static final String TAG = "SampleFcmIdService";

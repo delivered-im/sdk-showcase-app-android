@@ -34,6 +34,13 @@ import im.delivered.ui.chat.callbacks.OnChatClickListener;
 import im.delivered.ui.chat.callbacks.OnProfileAvatarClickListener;
 import im.delivered.ui.chat.create.CreateChatActivity;
 
+/**
+ * Class used to hold the ChatListFragment, the Delivered SDK widget
+ * used for displaying your Delivered chats.
+ *
+ * For more information about this component visit:
+ * https://docs.delivered.im/android/display-chats.html
+ */
 public class ChatsFragment extends ChatListFragment
         implements OnChatClickListener, OnProfileAvatarClickListener {
 

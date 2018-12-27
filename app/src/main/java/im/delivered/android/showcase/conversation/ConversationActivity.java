@@ -27,10 +27,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import im.delivered.android.showcase.R;
 import im.delivered.messaging.model.Message;
@@ -102,8 +100,6 @@ public class ConversationActivity extends AppCompatActivity
 
         mConversationFragment.setMessageListBackgroundColor(R.color.dlvrd_delivered_purple_light_50);
         mConversationFragment.setInputViewBackgroundColor(android.R.color.white);
-        mConversationFragment.setInputViewIconTintColor(
-                ContextCompat.getColor(this, R.color.dlvrd_delivered_purple));
 
         mConversationFragment.setIncomingMessageScheme(
                 ContextCompat.getColor(this, android.R.color.white),
@@ -118,16 +114,12 @@ public class ConversationActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_conversation, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_placeholder:
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -181,7 +173,6 @@ public class ConversationActivity extends AppCompatActivity
 
     @Override
     public boolean onUserAvatarClick(@NonNull String userId, @NonNull String chatId) {
-        Toast.makeText(this, "Clicked avatar of user: " + userId, Toast.LENGTH_SHORT).show();
         return true;
     }
 

@@ -94,7 +94,7 @@
             android:padding="8dp"
             app:fab_colorNormal="@color/dlvrd_delivered_brand_main_color"
             app:fab_colorPressed="@color/dlvrd_delivered_accent_color"
-            app:fab_icon="@drawable/dlvrd_ic_chat_white_24dp"
+            app:fab_icon="@drawable/dlvrd_ic_chat_white"
             app:fab_size="mini"
             app:fab_title="Create new chat" />
 
@@ -105,10 +105,10 @@
             android:tint="@color/dlvrd_delivered_accent_color"
             app:fab_colorNormal="@color/dlvrd_delivered_brand_main_color"
             app:fab_colorPressed="@color/dlvrd_delivered_accent_color"
-            app:fab_icon="@drawable/ic_search_white_24px"
+            app:fab_icon="@drawable/dlvrd_ic_search_white"
             app:fab_size="mini"
             app:fab_title="Discover chats" />
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>>
 
 </android.support.design.widget.CoordinatorLayout>

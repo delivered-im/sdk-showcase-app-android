@@ -22,6 +22,10 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import im.delivered.fcm.DeliveredFcmService;
 
+/**
+ * For detailed instructions on how to enable push with the Delivered SDK, visit:
+ * https://docs.delivered.im/android/push-notifications.html
+ */
 public class SampleFcmService extends DeliveredFcmService {
 
     private static final String TAG = "SampleFcmService";

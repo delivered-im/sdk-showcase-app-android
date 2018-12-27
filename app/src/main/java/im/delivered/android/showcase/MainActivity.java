@@ -33,12 +33,12 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import im.delivered.android.showcase.pager.MainPagerAdapter;
 import im.delivered.android.showcase.pager.MainTabLayout;
-import im.delivered.android.showcase.settings.SettingsActivity;
 import im.delivered.config.DeliveredConfig;
 import im.delivered.ui.chat.create.CreateChatActivity;
 import im.delivered.ui.chat.search.ChatSearchActivity;
 
 import static im.delivered.android.showcase.pager.MainTabLayout.INDEX_TAB_CHATS;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

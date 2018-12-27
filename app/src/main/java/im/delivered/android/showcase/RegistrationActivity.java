@@ -36,6 +36,14 @@ import android.widget.Toast;
 
 import static im.delivered.android.showcase.AuthenticationService.KEY_AUTH_ERROR;
 
+
+/**
+ * Activity used to handle the input of users who wish to
+ * register with the Delivered SDK for the first time.
+ *
+ * For more information about authentication with the Delivered SDK visit:
+ * https://docs.delivered.im/android/secure-registration.html
+ */
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText mUserNameInputView;

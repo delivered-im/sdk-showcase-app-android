@@ -16,31 +16,26 @@
 
 package im.delivered.android.showcase;
 
-import android.app.Application;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
-import im.delivered.InAppNavigation;
 import im.delivered.android.showcase.conversation.ConversationActivity;
 import im.delivered.sdk.DeliveredSdk;
 
-import static im.delivered.ui.conversation.DeliveredConversationFragment.EXTRA_CHAT_ID;
-import static im.delivered.ui.conversation.DeliveredConversationFragment.EXTRA_CHAT_NAME;
-
-public class BaseApp extends Application {
+public class BaseApp extends MultiDexApplication {
 
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
 
-        DeliveredSdk.setNavigation(new InAppNavigation() {
-            @Override
-            public void openChat(@NonNull String chatId, @NonNull String chatName) {
-                final Intent intent = new Intent(getApplicationContext(), ConversationActivity.class);
-                intent.putExtra(EXTRA_CHAT_ID, chatId);
-                intent.putExtra(EXTRA_CHAT_NAME, chatName);
-                startActivity(intent);
-            }
-        });
+        /* Method used register the Activity you wish to use for
+         * your conversations with the Delivered SDK UI widgets.
+         *
+         * For more information visit:
+         * https://docs.delivered.im/android/initial-setup.html
+         */
+        DeliveredSdk.setNavigation(() -> new Intent(getApplicationContext(), ConversationActivity.class));
     }
 }

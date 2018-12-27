@@ -37,7 +37,12 @@ import im.delivered.auth.TokenRefreshCallback;
 import im.delivered.config.DeliveredConfig;
 import im.delivered.sdk.DeliveredSdk;
 
-@SuppressWarnings("Convert2Lambda")
+/**
+ * Sample Service used to handle authentication with the Delivered SDK.
+ *
+ * For more information about the code in this class visit:
+ * https://docs.delivered.im/android/secure-registration.html
+ */
 public class AuthenticationService extends IntentService {
 
     private static final String TAG = "AuthenticationService";
@@ -101,43 +106,43 @@ public class AuthenticationService extends IntentService {
         mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
-            // 2. Retrieve Firebase token from response.
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "Firebase registration successfully completed");
-                    final FirebaseUser user = task.getResult().getUser();
-                    final Task<GetTokenResult> tokenTask = user.getIdToken(true);
-                    tokenTask.addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    // 2. Retrieve Firebase token from response.
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Firebase registration successfully completed");
+                            final FirebaseUser user = task.getResult().getUser();
+                            final Task<GetTokenResult> tokenTask = user.getIdToken(true);
+                            tokenTask.addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
 
-                        // 3. Authenticate with Delivered using the received Firebase token.
-                        @Override
-                        public void onComplete(@NonNull Task<GetTokenResult> task) {
-                            String userName = registrationIntent.getStringExtra(EXTRA_USER_NAME);
+                                // 3. Authenticate with Delivered using the received Firebase token.
+                                @Override
+                                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                    String userName = registrationIntent.getStringExtra(EXTRA_USER_NAME);
 
-                            if (TextUtils.isEmpty(userName)) {
-                                userName = userEmail;
-                            }
+                                    if (TextUtils.isEmpty(userName)) {
+                                        userName = userEmail;
+                                    }
 
-                            String token = task.getResult().getToken();
-                            if (!TextUtils.isEmpty(token)) {
-                                authenticateWithDelivered(token, userName,
-                                        userEmail, ACTION_REGISTER);
+                                    String token = task.getResult().getToken();
+                                    if (!TextUtils.isEmpty(token)) {
+                                        authenticateWithDelivered(token, userName,
+                                                userEmail, ACTION_REGISTER);
+                                    }
+                                }
+                            });
+                        } else {
+                            if (task.getException() != null) {
+                                Log.e(TAG, "Registration failed: " + task.getException().getMessage());
+                                registerData.putString(KEY_AUTH_ERROR,
+                                        task.getException().getMessage());
+
+                                result.putExtras(registerData);
+                                broadcastResult(result);
                             }
                         }
-                    });
-                } else {
-                    if (task.getException() != null) {
-                        Log.e(TAG, "Registration failed: " + task.getException().getMessage());
-                        registerData.putString(KEY_AUTH_ERROR,
-                                task.getException().getMessage());
-
-                        result.putExtras(registerData);
-                        broadcastResult(result);
                     }
-                }
-            }
-        });
+                });
     }
 
     private void login(Intent loginIntent) {
@@ -171,33 +176,33 @@ public class AuthenticationService extends IntentService {
                     mAuth.signInWithEmailAndPassword(userEmail, userPassword)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                task.getResult().getUser().getIdToken(true).addOnCompleteListener(
-                                        new OnCompleteListener<GetTokenResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        task.getResult().getUser().getIdToken(true).addOnCompleteListener(
+                                                new OnCompleteListener<GetTokenResult>() {
 
-                                            @Override
-                                            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                                                String token = task.getResult().getToken();
-                                                if (!TextUtils.isEmpty(token)) {
-                                                    authenticateWithDelivered(token, userEmail,
-                                                            userEmail, ACTION_LOGIN);
-                                                }
-                                            }
-                                        });
-                            } else {
-                                if (task.getException() != null) {
-                                    Log.e(TAG, "Login failed: " + task.getException().getMessage());
-                                    loginData.putString(KEY_AUTH_ERROR,
-                                            task.getException().getMessage());
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                                        String token = task.getResult().getToken();
+                                                        if (!TextUtils.isEmpty(token)) {
+                                                            authenticateWithDelivered(token, userEmail,
+                                                                    userEmail, ACTION_LOGIN);
+                                                        }
+                                                    }
+                                                });
+                                    } else {
+                                        if (task.getException() != null) {
+                                            Log.e(TAG, "Login failed: " + task.getException().getMessage());
+                                            loginData.putString(KEY_AUTH_ERROR,
+                                                    task.getException().getMessage());
 
-                                    result.putExtras(loginData);
-                                    broadcastResult(result);
+                                            result.putExtras(loginData);
+                                            broadcastResult(result);
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                    });
+                            });
                 }
             }
         });
