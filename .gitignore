@@ -4,7 +4,6 @@ build/
 /.gradle/
 local.properties
 *.iml
-settings.gradle
 .gradle
 delivered-sdk.json
 google-services.json
