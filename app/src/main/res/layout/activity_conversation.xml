@@ -27,15 +27,15 @@
         android:id="@+id/conversation_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/DeliveredTheme.AppBarOverlay">
+        android:theme="?attr/deliveredAppBarOverlayStyle">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/conversation_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/DeliveredTheme.App"
-            app:titleTextColor="@color/dlvrd_delivered_purple" />
+            style="?attr/deliveredToolbarStyle"
+            app:popupTheme="?attr/deliveredPopupTheme" />
 
     </android.support.design.widget.AppBarLayout>
 

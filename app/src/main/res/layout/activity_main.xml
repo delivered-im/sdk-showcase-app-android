@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) Delivered Oy
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +24,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/DeliveredTheme.AppBarOverlay"
+        android:theme="?attr/deliveredAppBarOverlayStyle"
         app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
@@ -33,9 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/DeliveredTheme.PopupOverlay"
-            app:titleMarginStart="24dp"
-            app:titleTextColor="@color/dlvrd_delivered_purple" />
+            app:popupTheme="?attr/deliveredPopupTheme"
+            app:titleMarginStart="24dp" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -45,13 +43,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_gravity="bottom"
-                android:background="@color/dlvrd_delivered_purple_light" />
+                android:background="#CFD1DC" />
 
             <im.delivered.android.showcase.pager.MainTabLayout
                 android:id="@+id/main_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/dlvrd_delivered_purple"
+                app:tabIndicatorColor="@color/dlvrd_color_primary"
                 app:tabIndicatorHeight="3dp"
                 app:tabMode="fixed" />
 
@@ -82,9 +80,9 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:fab_addButtonColorNormal="@color/dlvrd_delivered_brand_main_color"
-        app:fab_addButtonColorPressed="@color/dlvrd_delivered_accent_color"
         app:fab_addButtonPlusIconColor="@android:color/white"
         app:fab_addButtonSize="normal"
+        app:fab_colorPressed="@color/dlvrd_fab_ripple_color"
         app:fab_labelStyle="@style/FloatingActionMenuStyle">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -93,7 +91,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             app:fab_colorNormal="@color/dlvrd_delivered_brand_main_color"
-            app:fab_colorPressed="@color/dlvrd_delivered_accent_color"
+            app:fab_colorPressed="@color/dlvrd_fab_ripple_color"
             app:fab_icon="@drawable/dlvrd_ic_chat_white"
             app:fab_size="mini"
             app:fab_title="Create new chat" />
@@ -102,13 +100,13 @@
             android:id="@+id/search_public_chats_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tint="@color/dlvrd_delivered_accent_color"
+            android:tint="@android:color/white"
             app:fab_colorNormal="@color/dlvrd_delivered_brand_main_color"
-            app:fab_colorPressed="@color/dlvrd_delivered_accent_color"
+            app:fab_colorPressed="@color/dlvrd_fab_ripple_color"
             app:fab_icon="@drawable/dlvrd_ic_search_white"
             app:fab_size="mini"
             app:fab_title="Discover chats" />
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -26,6 +26,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -35,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static im.delivered.android.showcase.AuthenticationService.KEY_AUTH_ERROR;
-
 
 /**
  * Activity used to handle the input of users who wish to
@@ -71,12 +71,16 @@ public class RegistrationActivity extends AppCompatActivity {
         mUserNameInputView = findViewById(R.id.username_input_view);
         mUserEmailInputView = findViewById(R.id.user_email_input_view);
         mUserPasswordView = findViewById(R.id.user_password_input_view);
-        mUserPasswordView.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                registerUser();
-                return true;
+        mUserPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    RegistrationActivity.this.registerUser();
+                    return true;
+                }
+                return false;
             }
-            return false;
         });
 
         mProgressBar = findViewById(R.id.register_progress_bar);
@@ -86,12 +90,20 @@ public class RegistrationActivity extends AppCompatActivity {
         ViewCompat.setBackgroundTintList(mRegisterButton,
                 ContextCompat.getColorStateList(this, android.R.color.white));
 
-        mRegisterButton.setOnClickListener(view -> registerUser());
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegistrationActivity.this.registerUser();
+            }
+        });
 
         mLoginRequestView = findViewById(R.id.existing_account_view);
-        mLoginRequestView.setOnClickListener(view -> {
-            setResult(RESULT_CANCELED);
-            finish();
+        mLoginRequestView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegistrationActivity.this.setResult(RESULT_CANCELED);
+                RegistrationActivity.this.finish();
+            }
         });
     }
 

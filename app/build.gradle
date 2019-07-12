@@ -10,25 +10,15 @@ apply plugin: 'im.delivered.gradle.sdk'
 android {
     compileSdkVersion 28
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     defaultConfig {
         applicationId "im.delivered.android.showcase"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-    }
-
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
     }
 
     buildTypes {
@@ -72,21 +62,20 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:cardview-v7:28.0.0'
-
     implementation 'com.google.firebase:firebase-core:16.0.5'
-    implementation 'com.google.firebase:firebase-auth:16.0.5'
-    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'im.delivered.sdk:all:0.2.4'
+    implementation 'im.delivered.sdk:fcm-extension:0.2.4'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-    implementation 'im.delivered.sdk:all:0.+'
-    implementation 'im.delivered.sdk:fcm-extension:0.+'
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+googleServices {
+    disableVersionCheck = true
+}

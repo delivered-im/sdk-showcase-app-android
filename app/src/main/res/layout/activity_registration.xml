@@ -46,7 +46,7 @@
             android:hint="@string/username_hint"
             android:inputType="text"
             android:textColor="@android:color/white"
-            android:textColorHint="@color/dlvrd_delivered_purple_light_50"
+            android:textColorHint="@color/dlvrd_grey_400"
             android:textCursorDrawable="@drawable/input_cursor_drawable"
             app:backgroundTint="@android:color/white" />
 
@@ -58,7 +58,7 @@
             android:hint="@string/email_address_hint"
             android:inputType="textEmailAddress"
             android:textColor="@android:color/white"
-            android:textColorHint="@color/dlvrd_delivered_purple_light_50"
+            android:textColorHint="@color/dlvrd_grey_400"
             android:textCursorDrawable="@drawable/input_cursor_drawable"
             app:backgroundTint="@android:color/white" />
 
@@ -71,7 +71,7 @@
             android:inputType="textPassword"
             android:textColor="@android:color/white"
             android:imeOptions="actionDone"
-            android:textColorHint="@color/dlvrd_delivered_purple_light_50"
+            android:textColorHint="@color/dlvrd_grey_400"
             android:textCursorDrawable="@drawable/input_cursor_drawable"
             app:backgroundTint="@android:color/white" />
 
@@ -82,8 +82,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:text="@string/register_text"
-            android:textAllCaps="false"
-            android:textColor="@color/dlvrd_delivered_purple" />
+            android:textAllCaps="false" />
 
         <TextView
             android:id="@+id/existing_account_view"

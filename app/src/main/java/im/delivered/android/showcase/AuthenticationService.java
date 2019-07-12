@@ -32,14 +32,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 
-import im.delivered.auth.DeliveredAuthCallback;
-import im.delivered.auth.TokenRefreshCallback;
-import im.delivered.config.DeliveredConfig;
-import im.delivered.sdk.DeliveredSdk;
+import im.delivered.DeliveredSdk;
+import im.delivered.auth.DeliveredAuthState;
+import im.delivered.auth.DeliveredRegistrationCallback;
+import im.delivered.auth.DeliveredTokenRefreshCallback;
+import im.delivered.auth.api.AuthException;
 
 /**
  * Sample Service used to handle authentication with the Delivered SDK.
- *
+ * <p>
  * For more information about the code in this class visit:
  * https://docs.delivered.im/android/secure-registration.html
  */
@@ -47,16 +48,14 @@ public class AuthenticationService extends IntentService {
 
     private static final String TAG = "AuthenticationService";
 
-    public static final String ACTION_LOGIN        = "auth_action_login";
-    public static final String ACTION_REGISTER     = "auth_action_register";
-    public static final String ACTION_GOOGLE_LOGIN = "auth_google_login";
+    public static final String ACTION_LOGIN = "auth_action_login";
+    public static final String ACTION_REGISTER = "auth_action_register";
 
-    public static final String EXTRA_USER_NAME         = "extra_user_name";
-    public static final String EXTRA_USER_EMAIL        = "extra_user_email";
-    public static final String EXTRA_USER_PASSWORD     = "extra_user_password";
-    public static final String EXTRA_GOOGLE_CREDENTIAL = "extra_auth_token";
+    public static final String EXTRA_USER_NAME = "extra_user_name";
+    public static final String EXTRA_USER_EMAIL = "extra_user_email";
+    public static final String EXTRA_USER_PASSWORD = "extra_user_password";
 
-    public static final String KEY_USER_NAME  = "key_user_name";
+    public static final String KEY_USER_NAME = "key_user_name";
     public static final String KEY_AUTH_TOKEN = "key_auth_token";
     public static final String KEY_AUTH_ERROR = "key_auth_error";
 
@@ -86,10 +85,6 @@ public class AuthenticationService extends IntentService {
             case ACTION_LOGIN:
                 login(intent);
                 break;
-            case ACTION_GOOGLE_LOGIN:
-                // TODO: Feature not available at the moment.
-                // loginWithGoogle(intent);
-                break;
         }
     }
 
@@ -106,49 +101,52 @@ public class AuthenticationService extends IntentService {
         mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
-                    // 2. Retrieve Firebase token from response.
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "Firebase registration successfully completed");
-                            final FirebaseUser user = task.getResult().getUser();
-                            final Task<GetTokenResult> tokenTask = user.getIdToken(true);
-                            tokenTask.addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+            // 2. Retrieve Firebase token from response.
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    if (task.getResult() == null) {
+                        Log.w(TAG, "createUserWithEmailAndPassword task did not provide any result");
+                        return;
+                    }
+                    final FirebaseUser user = task.getResult().getUser();
+                    final Task<GetTokenResult> tokenTask = user.getIdToken(true);
+                    tokenTask.addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
 
-                                // 3. Authenticate with Delivered using the received Firebase token.
-                                @Override
-                                public void onComplete(@NonNull Task<GetTokenResult> task) {
-                                    String userName = registrationIntent.getStringExtra(EXTRA_USER_NAME);
+                        // 3. Authenticate with Delivered using the received Firebase token.
+                        @Override
+                        public void onComplete(@NonNull Task<GetTokenResult> task) {
+                            if (task.getResult() == null) {
+                                Log.w(TAG, "Firebase task did not provide any result");
+                                return;
+                            }
+                            String userName = registrationIntent.getStringExtra(EXTRA_USER_NAME);
+                            String token = task.getResult().getToken();
 
-                                    if (TextUtils.isEmpty(userName)) {
-                                        userName = userEmail;
-                                    }
-
-                                    String token = task.getResult().getToken();
-                                    if (!TextUtils.isEmpty(token)) {
-                                        authenticateWithDelivered(token, userName,
-                                                userEmail, ACTION_REGISTER);
-                                    }
-                                }
-                            });
-                        } else {
-                            if (task.getException() != null) {
-                                Log.e(TAG, "Registration failed: " + task.getException().getMessage());
-                                registerData.putString(KEY_AUTH_ERROR,
-                                        task.getException().getMessage());
-
-                                result.putExtras(registerData);
-                                broadcastResult(result);
+                            if (!TextUtils.isEmpty(token)) {
+                                authenticateWithDelivered(token, userName,
+                                        userEmail, ACTION_REGISTER);
                             }
                         }
+                    });
+                } else {
+                    if (task.getException() != null) {
+                        Log.e(TAG, "Registration failed: " + task.getException().getMessage());
+                        registerData.putString(KEY_AUTH_ERROR,
+                                task.getException().getMessage());
+
+                        result.putExtras(registerData);
+                        broadcastResult(result);
                     }
-                });
+                }
+            }
+        });
     }
 
     private void login(Intent loginIntent) {
         final String userEmail = loginIntent.getStringExtra(EXTRA_USER_EMAIL);
         final String userPassword = loginIntent.getStringExtra(EXTRA_USER_PASSWORD);
-        final String authToken = DeliveredConfig.getAuthToken();
+        final String authToken = DeliveredAuthState.getCurrent().getAuthToken();
 
         Log.d(TAG, "Login - user: " + userEmail + " authToken: " + authToken);
 
@@ -157,11 +155,12 @@ public class AuthenticationService extends IntentService {
 
         // 1. Attempt to refresh an already stored Delivered auth token.
         Log.d(TAG, "Login in. Attempting Delivered token refresh");
-        DeliveredSdk.refreshDeliveredToken(new TokenRefreshCallback() {
+        DeliveredSdk.refreshDeliveredToken(this, new DeliveredTokenRefreshCallback() {
 
             // 2. If a token is found and successfully refreshed we are all good.
             @Override
-            public void onAuthTokenRefreshed(String deliveredToken) {
+            public void onAuthTokenRefreshed(@NonNull String deliveredToken,
+                                             int authTokenDuration, AuthException ex) {
                 if (!TextUtils.isEmpty(deliveredToken)) {
                     Log.d(TAG, "Delivered token refresh successfully completed");
                     loginData.putString(KEY_USER_NAME, userEmail);
@@ -176,33 +175,42 @@ public class AuthenticationService extends IntentService {
                     mAuth.signInWithEmailAndPassword(userEmail, userPassword)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        task.getResult().getUser().getIdToken(true).addOnCompleteListener(
-                                                new OnCompleteListener<GetTokenResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult() == null) {
+                                    Log.w(TAG, "signInWithEmailAndPassword task did not provide any result");
+                                    return;
+                                }
+                                final FirebaseUser user = task.getResult().getUser();
+                                final Task<GetTokenResult> tokenTask = user.getIdToken(true);
+                                tokenTask.addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
 
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<GetTokenResult> task) {
-                                                        String token = task.getResult().getToken();
-                                                        if (!TextUtils.isEmpty(token)) {
-                                                            authenticateWithDelivered(token, userEmail,
-                                                                    userEmail, ACTION_LOGIN);
-                                                        }
-                                                    }
-                                                });
-                                    } else {
-                                        if (task.getException() != null) {
-                                            Log.e(TAG, "Login failed: " + task.getException().getMessage());
-                                            loginData.putString(KEY_AUTH_ERROR,
-                                                    task.getException().getMessage());
-
-                                            result.putExtras(loginData);
-                                            broadcastResult(result);
+                                    @Override
+                                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                        if (task.getResult() == null) {
+                                            Log.w(TAG, "Firebase task did not provide any result");
+                                            return;
+                                        }
+                                        String token = task.getResult().getToken();
+                                        if (!TextUtils.isEmpty(token)) {
+                                            authenticateWithDelivered(token, userEmail,
+                                                    userEmail, ACTION_LOGIN);
                                         }
                                     }
+                                });
+                            } else {
+                                if (task.getException() != null) {
+                                    Log.e(TAG, "Login failed: " + task.getException().getMessage());
+                                    loginData.putString(KEY_AUTH_ERROR,
+                                            task.getException().getMessage());
+
+                                    result.putExtras(loginData);
+                                    broadcastResult(result);
                                 }
-                            });
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -216,45 +224,29 @@ public class AuthenticationService extends IntentService {
         final Intent result = new Intent(action);
         final Bundle registerData = new Bundle();
 
-        DeliveredSdk.registerWithFirebaseToken(userName, firebaseToken, new DeliveredAuthCallback() {
+        DeliveredSdk.registerWithFirebaseToken(this, userName, firebaseToken,
+                new DeliveredRegistrationCallback() {
 
-            @Override
-            public void onAuthComplete(String deliveredToken) {
-                if (!TextUtils.isEmpty(deliveredToken)) {
-                    Log.d(TAG, "Delivered authentication successful - email: " + userEmail
-                            + " token: " + deliveredToken);
+                    @Override
+                    public void onRegistrationComplete(AuthException ex) {
+                        if (ex == null) {
+                            Log.d(TAG, "Delivered authentication successful - email: " + userEmail);
 
-                    registerData.putString(KEY_USER_NAME, userName);
-                    registerData.putString(KEY_AUTH_TOKEN, deliveredToken);
-                } else {
-                    registerData.putString(KEY_AUTH_ERROR, "Delivered authentication failed");
-                }
+                            registerData.putString(KEY_USER_NAME, userName);
+                            registerData.putString(KEY_AUTH_TOKEN, "");
+                        } else {
+                            registerData.putString(KEY_AUTH_ERROR,
+                                    "Delivered authentication failed " + ex.getMessage());
+                        }
 
-                result.putExtras(registerData);
-                broadcastResult(result);
-            }
-        });
+                        result.putExtras(registerData);
+                        broadcastResult(result);
+                    }
+                });
     }
 
     private void broadcastResult(Intent result) {
         LocalBroadcastManager.getInstance(AuthenticationService.this)
                 .sendBroadcast(result);
     }
-
-    // TODO: Feature not available at the moment.
-    /*private void loginWithGoogle(Intent loginIntent) {
-        AuthCredential credential = loginIntent.getParcelableExtra(EXTRA_GOOGLE_CREDENTIAL);
-        mAuth.signInWithCredential(credential).addOnCompleteListener(
-        new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "signInWithCredential:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.getException());
-                }
-            }
-        });
-    }*/
 }

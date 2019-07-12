@@ -33,12 +33,11 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import im.delivered.android.showcase.pager.MainPagerAdapter;
 import im.delivered.android.showcase.pager.MainTabLayout;
-import im.delivered.config.DeliveredConfig;
+import im.delivered.auth.DeliveredAuthState;
 import im.delivered.ui.chat.create.CreateChatActivity;
 import im.delivered.ui.chat.search.ChatSearchActivity;
 
 import static im.delivered.android.showcase.pager.MainTabLayout.INDEX_TAB_CHATS;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,13 +58,9 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setIcon(R.mipmap.ic_launcher);
         }
 
-        // We first check if we have a valid Delivered auth token.
-        final String authToken = DeliveredConfig.getAuthToken();
-
         // If no token is found we prompt the user to enter their credentials.
-        if (authToken == null || authToken.isEmpty()) {
-            startActivity(new Intent(MainActivity.this,
-                    LoginActivity.class));
+        if (!DeliveredAuthState.getCurrent().isAuthorized()) {
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
         }
@@ -84,10 +79,21 @@ public class MainActivity extends AppCompatActivity {
         final FloatingActionButton createNewChatFab =
                 findViewById(R.id.create_new_chat_fab);
 
-        searchPublicChatsFab.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, ChatSearchActivity.class)));
-        createNewChatFab.setOnClickListener(v ->
-                startActivity(CreateChatActivity.newInstance(this)));
+        searchPublicChatsFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.startActivity(
+                        new Intent(MainActivity.this, ChatSearchActivity.class));
+            }
+        });
+
+        createNewChatFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.startActivity(
+                        CreateChatActivity.newInstance(MainActivity.this));
+            }
+        });
 
         if (viewPager.getCurrentItem() == INDEX_TAB_CHATS) {
             fabActionMenu.setVisibility(View.VISIBLE);

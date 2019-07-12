@@ -26,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -36,7 +37,6 @@ import android.widget.Toast;
 
 import static im.delivered.android.showcase.AuthenticationService.KEY_AUTH_ERROR;
 import static im.delivered.android.showcase.Constants.REQUEST_CODE_REGISTER;
-
 
 /**
  * Activity used to handle the input of users who wish to
@@ -73,12 +73,16 @@ public class LoginActivity extends AccountAuthenticatorActivity {
 
         mUserEmailInputView = findViewById(R.id.user_email_input_view);
         mUserPasswordInputView = findViewById(R.id.user_password_input_view);
-        mUserPasswordInputView.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                login();
-                return true;
+        mUserPasswordInputView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    LoginActivity.this.login();
+                    return true;
+                }
+                return false;
             }
-            return false;
         });
 
         mProgressBar = findViewById(R.id.login_progress_bar);
@@ -88,20 +92,28 @@ public class LoginActivity extends AccountAuthenticatorActivity {
         ViewCompat.setBackgroundTintList(mLoginButton,
                 ContextCompat.getColorStateList(this, android.R.color.white));
 
-        mLoginButton.setOnClickListener(view -> login());
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginActivity.this.login();
+            }
+        });
 
         mRegisterRequestView = findViewById(R.id.register_request_view);
-        mRegisterRequestView.setOnClickListener(view -> {
-            // Here we launch the Registration activity where
-            // the user can create an account and subsequently log in.
-            // Once that is done a result will be returned to this activity.
-            Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+        mRegisterRequestView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Here we launch the Registration activity where
+                // the user can create an account and subsequently log in.
+                // Once that is done a result will be returned to this activity.
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
 
-            if (getIntent().getExtras() != null) {
-                intent.putExtras(getIntent().getExtras());
+                if (LoginActivity.this.getIntent().getExtras() != null) {
+                    intent.putExtras(LoginActivity.this.getIntent().getExtras());
+                }
+
+                LoginActivity.this.startActivityForResult(intent, REQUEST_CODE_REGISTER);
             }
-
-            startActivityForResult(intent, REQUEST_CODE_REGISTER);
         });
 
         // TODO: Feature not available at the moment.

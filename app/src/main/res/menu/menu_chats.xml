@@ -22,7 +22,6 @@
         android:icon="@drawable/ic_search_white_24px"
         android:title="chat_search"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:iconTint="@color/dlvrd_delivered_purple"
         app:showAsAction="always" />
 
     <item

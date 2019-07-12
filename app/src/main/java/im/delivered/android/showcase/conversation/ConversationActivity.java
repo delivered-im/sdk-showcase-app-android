@@ -21,7 +21,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -31,7 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import im.delivered.android.showcase.R;
-import im.delivered.messaging.model.Message;
+import im.delivered.chat.model.Message;
 import im.delivered.ui.conversation.DeliveredConversationFragment;
 import im.delivered.ui.conversation.callbacks.OnMessageClickListener;
 import im.delivered.ui.conversation.callbacks.OnMessageLongClickListener;
@@ -97,19 +96,6 @@ public class ConversationActivity extends AppCompatActivity
         mConversationFragment.setOnMessageClickListener(this);
         mConversationFragment.setOnMessageLongClickListener(this);
         mConversationFragment.setOnUserAvatarClickListener(this);
-
-        mConversationFragment.setMessageListBackgroundColor(R.color.dlvrd_delivered_purple_light_50);
-        mConversationFragment.setInputViewBackgroundColor(android.R.color.white);
-
-        mConversationFragment.setIncomingMessageScheme(
-                ContextCompat.getColor(this, android.R.color.white),
-                ContextCompat.getColor(this, R.color.dlvrd_delivered_purple));
-
-        mConversationFragment.setOutgoingMessageScheme(
-                ContextCompat.getColor(this, R.color.dlvrd_delivered_purple),
-                ContextCompat.getColor(this, android.R.color.white));
-
-        mConversationFragment.setMessageTextSize(18);
     }
 
     @Override
@@ -162,17 +148,17 @@ public class ConversationActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onMessageClick(@NonNull Message message) {
-        return true;
-    }
-
-    @Override
     public boolean onMessageLongClick(@NonNull Message message) {
         return false;
     }
 
     @Override
     public boolean onUserAvatarClick(@NonNull String userId, @NonNull String chatId) {
+        return true;
+    }
+
+    @Override
+    public boolean onMessageClick(@NonNull Message message) {
         return true;
     }
 

@@ -20,8 +20,9 @@ import android.content.Intent;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import im.delivered.DeliveredSdk;
+import im.delivered.InAppNavigation;
 import im.delivered.android.showcase.conversation.ConversationActivity;
-import im.delivered.sdk.DeliveredSdk;
 
 public class BaseApp extends MultiDexApplication {
 
@@ -36,6 +37,13 @@ public class BaseApp extends MultiDexApplication {
          * For more information visit:
          * https://docs.delivered.im/android/initial-setup.html
          */
-        DeliveredSdk.setNavigation(() -> new Intent(getApplicationContext(), ConversationActivity.class));
+        DeliveredSdk.setNavigation(new InAppNavigation() {
+
+            @Override
+            public Intent getConversationActivity() {
+                return new Intent(
+                        BaseApp.this.getApplicationContext(), ConversationActivity.class);
+            }
+        });
     }
 }

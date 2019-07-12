@@ -37,4 +37,14 @@ public class SampleFcmService extends DeliveredFcmService {
 
         // Your custom push handling here if needed
     }
+
+    @Override
+    public void onNewToken(String newToken) {
+        super.onNewToken(newToken);
+        Log.d(TAG, "Refreshed token: " + newToken);
+
+        // If you want to send messages to this application instance or
+        // manage this apps subscriptions on the server side, send the
+        // Instance ID token to your app server.
+    }
 }

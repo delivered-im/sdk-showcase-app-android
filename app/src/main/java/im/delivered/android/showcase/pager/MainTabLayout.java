@@ -36,8 +36,6 @@ public class MainTabLayout extends TabLayout
 
     private ViewPager mainViewPager;
 
-    private int mCurrentIndex;
-
     public MainTabLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         addOnTabSelectedListener(this);
@@ -62,25 +60,25 @@ public class MainTabLayout extends TabLayout
                             tabTitle.setText(getResources()
                                     .getString(R.string.main_tab_title_chats));
                             tabTitle.setTextColor(ContextCompat.getColor(getContext(),
-                                    R.color.dlvrd_delivered_purple));
+                                    android.R.color.white));
                             break;
                         case INDEX_TAB_REQUESTS:
                             tabTitle.setText(getResources()
                                     .getString(R.string.main_tab_title_requests));
                             tabTitle.setTextColor(ContextCompat.getColor(getContext(),
-                                    R.color.dlvrd_delivered_purple));
+                                    android.R.color.white));
                             break;
                         case INDEX_TAB_FRIENDS:
                             tabTitle.setText(getResources()
                                     .getString(R.string.main_tab_title_friends));
                             tabTitle.setTextColor(ContextCompat.getColor(getContext(),
-                                    R.color.dlvrd_delivered_purple));
+                                    android.R.color.white));
                             break;
                         case INDEX_TAB_ME:
                             tabTitle.setText(getResources()
                                     .getString(R.string.main_tab_title_me));
                             tabTitle.setTextColor(ContextCompat.getColor(getContext(),
-                                    R.color.dlvrd_delivered_purple));
+                                    android.R.color.white));
                             break;
 
                     }
