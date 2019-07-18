@@ -19,8 +19,6 @@ package im.delivered.android.showcase.conversation;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -85,12 +83,15 @@ public class ConversationActivity extends AppCompatActivity
             }
         });
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (findViewById(R.id.conversation_fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
 
-        mConversationFragment = DeliveredConversationFragment.newInstance(mChatId);
-        fragmentTransaction.add(R.id.conversation_fragment_container, mConversationFragment);
-        fragmentTransaction.commit();
+            mConversationFragment = DeliveredConversationFragment.newInstance(mChatId);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.conversation_fragment_container, mConversationFragment).commit();
+        }
 
         mConversationFragment.setOnMessageSelectListener(this);
         mConversationFragment.setOnMessageClickListener(this);
