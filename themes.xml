@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.Delivered.Light" parent="Theme.AppCompat.Light.NoActionBar" tools:ignore="ResourceName">
+        <item name="customAppTheme">@style/Theme.Delivered.Light</item>
+        <item name="customAppThemeTransparent">@style/Theme.Delivered.Light.Transparent</item>
+        <!-- General Material colors -->
+        <item name="colorPrimary">@color/dlvrd_color_primary</item>
+        <item name="colorPrimaryDark">@color/dlvrd_color_primary_dark</item>
+        <item name="colorAccent">@color/dlvrd_color_accent</item>
+        <item name="android:textColorPrimary">@color/dlvrd_text_color_primary</item>
+        <item name="android:windowBackground">@color/dlvrd_window_background</item>
+
+        <!-- Contextual Toolbar -->
+        <item name="actionModeBackground">@color/dlvrd_action_mode_background</item>
+        <item name="actionModeCloseDrawable">?attr/homeAsUpIndicator</item>
+        <item name="actionModeCloseButtonStyle">@style/Widget.Delivered.ActionModeBackButton</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:typeface">normal</item>
+
+        <!-- General App widgets -->
+        <item name="deliveredToolbarStyle">@style/Widget.Delivered.Toolbar</item>
+        <item name="deliveredAppBarOverlayStyle">@style/Widget.Delivered.AppBarOverlay</item>
+        <item name="deliveredPopupTheme">@style/Widget.Delivered.PopupOverlay.Light</item>
+        <item name="deliveredButtonStyle">@style/Widget.Delivered.Button</item>
+        <item name="deliveredFloatingActionButtonStyle">@style/Widget.Delivered.FloatingActionButton</item>
+        <item name="deliveredProgressBarStyle">@style/Widget.Delivered.ProgressBar</item>
+        <item name="deliveredContentGuidelineAppearance">@style/TextAppearance.Delivered.ContentGuideline</item>
+
+        <!-- ChatList -->
+        <item name="deliveredChatListAvatarImageViewStyle">@style/Widget.Delivered.ChatList.Avatar</item>
+        <item name="deliveredChatListChatGroupIcon">@drawable/dlvrd_ic_group_chat_hint</item>
+        <item name="deliveredChatListChatGroupImageViewStyle">@style/Widget.Delivered.ChatList.ChatGroupHint</item>
+        <item name="deliveredChatListLastMessageTimeStampTextStyle">@style/Widget.Delivered.ChatList.TimeStamp</item>
+        <item name="deliveredChatListLastMessageContentTextStyle">@style/Widget.Delivered.ChatList.LastMessageContent</item>
+        <item name="deliveredChatListLastMessageSenderNameTextStyle">@style/Widget.Delivered.ChatList.LastSenderName</item>
+        <item name="deliveredChatListUnreadBadgeTextStyle">@style/Widget.Delivered.ChatList.UnreadMessageBadge</item>
+
+        <!-- MessageList -->
+        <item name="deliveredMessageListStyle">@style/Widget.Delivered.MessageList.MessageList</item>
+        <item name="deliveredMessageListItemStyle">@style/Widget.Delivered.MessageList.MessageListItem</item>
+        <item name="deliveredMessageChatBubbleIncoming">@drawable/dlvrd_incoming_text_msg_bg</item>
+        <item name="deliveredMessageChatBubbleOutgoing">@drawable/dlvrd_outgoing_text_msg_bg</item>
+        <item name="deliveredMessageListDateSeparatorTextStyle">@style/Widget.Delivered.MessageList.DateSeparator</item>
+        <item name="deliveredMessageListMessageTimeStampTextStyle">@style/Widget.Delivered.MessageList.MessageTimeStamp</item>
+        <item name="deliveredMessageListSenderAvatarViewStyle">@style/Widget.Delivered.MessageList.SenderAvatar</item>
+        <item name="deliveredMessageListSenderNameTextStyle">@style/Widget.Delivered.MessageList.SenderName</item>
+        <item name="deliveredMessageListIncomingMessageTextStyle">@style/Widget.Delivered.MessageList.IncomingMessage</item>
+        <item name="deliveredMessageListOutgoingMessageTextStyle">@style/Widget.Delivered.MessageList.OutgoingMessage</item>
+        <item name="deliveredMessageListMediaCaptionTextStyle">@style/Widget.Delivered.MessageList.Caption</item>
+        <item name="deliveredMessageListMessageStatusStyle">@style/Widget.Delivered.MessageList.MessageStatus</item>
+        <item name="deliveredMessageListSentIcon">@drawable/dlvrd_sent_icon</item>
+        <item name="deliveredMessageListDeliveredIcon">@drawable/dlvrd_delivered_icon</item>
+        <item name="deliveredMessageListUnreadIndicatorTextStyle">@style/Widget.Delivered.MessageList.UnreadIndicator</item>
+
+        <!-- SimpleInputView -->
+        <item name="deliveredMessageInputStyle">@style/Widget.Delivered.MessageInput</item>
+        <item name="deliveredMessageInputEditTextStyle">@style/Widget.Delivered.MessageInput.Input</item>
+        <item name="deliveredMessageSendButtonStyle">@style/Widget.Delivered.MessageInput.SendButton</item>
+        <item name="deliveredMessageInputImageIcon">@drawable/dlvrd_ic_media_gallery</item>
+        <item name="deliveredMessageInputCameraIcon">@drawable/dlvrd_ic_camera_alt</item>
+        <item name="deliveredMessageInputGifIcon">@drawable/dlvrd_ic_gif</item>
+        <item name="deliveredMessageInputSendIcon">@drawable/dlvrd_ic_send_message</item>
+        <item name="deliveredMessageInputMediaButtonStyle">@style/Widget.Delivered.MessageInput.MediaButton</item>
+
+        <!-- Chat/User profile -->
+        <item name="deliveredProfileCollapsedTitleTextAppearance">@style/Widget.Delivered.Profile.CollapsedTitle</item>
+        <item name="deliveredProfileExpandedTitleTextAppearance">@style/Widget.Delivered.Profile.ExpandedTitle</item>
+        <item name="deliveredProfileNameTextStyle">@style/Widget.Delivered.Profile.UserName</item>
+        <item name="deliveredProfileDescriptionTextStyle">@style/Widget.Delivered.Profile.Description</item>
+
+        <!-- ContactListView -->
+        <item name="deliveredContactListUsernameTextStyle">@style/Widget.Delivered.ContactList.Username</item>
+    </style>
+
+    <style name="Theme.Delivered.DayNight" parent="Theme.AppCompat.DayNight.NoActionBar" tools:ignore="ResourceName">
+        <item name="customAppTheme">@style/Theme.Delivered.DayNight</item>
+        <item name="customAppThemeTransparent">@style/Theme.Delivered.DayNight.Transparent</item>
+        <!-- General Material colors -->
+        <item name="colorPrimary">@color/dlvrd_color_primary</item>
+        <item name="colorPrimaryDark">@color/dlvrd_color_primary_dark</item>
+        <item name="colorAccent">@color/dlvrd_color_accent</item>
+        <item name="android:textColorPrimary">@color/dlvrd_text_color_primary</item>
+        <item name="android:windowBackground">@color/dlvrd_window_background</item>
+
+        <!-- Contextual Toolbar -->
+        <item name="actionModeBackground">@color/dlvrd_action_mode_background</item>
+        <item name="actionModeCloseDrawable">?attr/homeAsUpIndicator</item>
+        <item name="actionModeCloseButtonStyle">@style/Widget.Delivered.ActionModeBackButton</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:typeface">normal</item>
+
+        <!-- General App widgets -->
+        <item name="deliveredToolbarStyle">@style/Widget.Delivered.Toolbar</item>
+        <item name="deliveredAppBarOverlayStyle">@style/Widget.Delivered.AppBarOverlay</item>
+        <item name="deliveredPopupTheme">@style/Widget.Delivered.PopupOverlay.Dark</item>
+        <item name="deliveredButtonStyle">@style/Widget.Delivered.Button</item>
+        <item name="deliveredFloatingActionButtonStyle">@style/Widget.Delivered.FloatingActionButton</item>
+        <item name="deliveredProgressBarStyle">@style/Widget.Delivered.ProgressBar</item>
+        <item name="deliveredContentGuidelineAppearance">@style/TextAppearance.Delivered.ContentGuideline</item>
+
+        <!-- ChatList -->
+        <item name="deliveredChatListAvatarImageViewStyle">@style/Widget.Delivered.ChatList.Avatar</item>
+        <item name="deliveredChatListChatGroupIcon">@drawable/dlvrd_ic_group_chat_hint</item>
+        <item name="deliveredChatListChatGroupImageViewStyle">@style/Widget.Delivered.ChatList.ChatGroupHint</item>
+        <item name="deliveredChatListLastMessageTimeStampTextStyle">@style/Widget.Delivered.ChatList.TimeStamp</item>
+        <item name="deliveredChatListLastMessageContentTextStyle">@style/Widget.Delivered.ChatList.LastMessageContent</item>
+        <item name="deliveredChatListLastMessageSenderNameTextStyle">@style/Widget.Delivered.ChatList.LastSenderName</item>
+        <item name="deliveredChatListUnreadBadgeTextStyle">@style/Widget.Delivered.ChatList.UnreadMessageBadge</item>
+
+        <!-- MessageList -->
+        <item name="deliveredMessageListStyle">@style/Widget.Delivered.MessageList.MessageList</item>
+        <item name="deliveredMessageListItemStyle">@style/Widget.Delivered.MessageList.MessageListItem</item>
+        <item name="deliveredMessageChatBubbleIncoming">@drawable/dlvrd_incoming_text_msg_bg</item>
+        <item name="deliveredMessageChatBubbleOutgoing">@drawable/dlvrd_outgoing_text_msg_bg</item>
+        <item name="deliveredMessageListDateSeparatorTextStyle">@style/Widget.Delivered.MessageList.DateSeparator</item>
+        <item name="deliveredMessageListMessageTimeStampTextStyle">@style/Widget.Delivered.MessageList.MessageTimeStamp</item>
+        <item name="deliveredMessageListSenderAvatarViewStyle">@style/Widget.Delivered.MessageList.SenderAvatar</item>
+        <item name="deliveredMessageListSenderNameTextStyle">@style/Widget.Delivered.MessageList.SenderName</item>
+        <item name="deliveredMessageListIncomingMessageTextStyle">@style/Widget.Delivered.MessageList.IncomingMessage</item>
+        <item name="deliveredMessageListOutgoingMessageTextStyle">@style/Widget.Delivered.MessageList.OutgoingMessage</item>
+        <item name="deliveredMessageListMediaCaptionTextStyle">@style/Widget.Delivered.MessageList.Caption</item>
+        <item name="deliveredMessageListMessageStatusStyle">@style/Widget.Delivered.MessageList.MessageStatus</item>
+        <item name="deliveredMessageListSentIcon">@drawable/dlvrd_sent_icon</item>
+        <item name="deliveredMessageListDeliveredIcon">@drawable/dlvrd_delivered_icon</item>
+        <item name="deliveredMessageListUnreadIndicatorTextStyle">@style/Widget.Delivered.MessageList.UnreadIndicator</item>
+
+        <!-- SimpleInputView -->
+        <item name="deliveredMessageInputStyle">@style/Widget.Delivered.MessageInput</item>
+        <item name="deliveredMessageInputEditTextStyle">@style/Widget.Delivered.MessageInput.Input</item>
+        <item name="deliveredMessageSendButtonStyle">@style/Widget.Delivered.MessageInput.SendButton</item>
+        <item name="deliveredMessageInputImageIcon">@drawable/dlvrd_ic_media_gallery</item>
+        <item name="deliveredMessageInputCameraIcon">@drawable/dlvrd_ic_camera_alt</item>
+        <item name="deliveredMessageInputGifIcon">@drawable/dlvrd_ic_gif</item>
+        <item name="deliveredMessageInputSendIcon">@drawable/dlvrd_ic_send_message</item>
+        <item name="deliveredMessageInputMediaButtonStyle">@style/Widget.Delivered.MessageInput.MediaButton</item>
+
+        <!-- Chat/User profile -->
+        <item name="deliveredProfileCollapsedTitleTextAppearance">@style/Widget.Delivered.Profile.CollapsedTitle</item>
+        <item name="deliveredProfileExpandedTitleTextAppearance">@style/Widget.Delivered.Profile.ExpandedTitle</item>
+        <item name="deliveredProfileNameTextStyle">@style/Widget.Delivered.Profile.UserName</item>
+        <item name="deliveredProfileDescriptionTextStyle">@style/Widget.Delivered.Profile.Description</item>
+
+        <!-- ContactListView -->
+        <item name="deliveredContactListUsernameTextStyle">@style/Widget.Delivered.ContactList.Username</item>
+
+    </style>
+</resources>
