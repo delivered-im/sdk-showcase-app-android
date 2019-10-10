@@ -28,7 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import im.delivered.android.showcase.R;
-import im.delivered.chat.model.Message;
+import im.delivered.chat.domain.Message;
 import im.delivered.ui.conversation.DeliveredConversationFragment;
 import im.delivered.ui.conversation.callbacks.OnMessageClickListener;
 import im.delivered.ui.conversation.callbacks.OnMessageLongClickListener;
