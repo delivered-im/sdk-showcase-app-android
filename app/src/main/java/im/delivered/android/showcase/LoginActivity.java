@@ -56,9 +56,6 @@ public class LoginActivity extends AccountAuthenticatorActivity {
     private ProgressBar mProgressBar;
     private View mBackgroundMask;
 
-    // TODO: Feature not available at the moment.
-    // private GoogleSignInClient mGoogleSignInClient;
-
     private BroadcastReceiver mAuthReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -115,26 +112,6 @@ public class LoginActivity extends AccountAuthenticatorActivity {
                 LoginActivity.this.startActivityForResult(intent, REQUEST_CODE_REGISTER);
             }
         });
-
-        // TODO: Feature not available at the moment.
-        /*SignInButton googleSignInButton = findViewById(R.id.google_sign_in_button);
-        googleSignInButton.setSize(SignInButton.SIZE_WIDE);
-
-        GoogleSignInOptions gso =
-                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        googleSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_LOGIN);
-            }
-        });*/
     }
 
     @Override
@@ -212,26 +189,6 @@ public class LoginActivity extends AccountAuthenticatorActivity {
         if (requestCode == REQUEST_CODE_REGISTER && resultCode == RESULT_OK) {
             completeLogin(data);
         }
-
-        // TODO: Feature not available at the moment.
-        /*else if (requestCode == REQUEST_CODE_GOOGLE_LOGIN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase.
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                AuthCredential credential =
-                        GoogleAuthProvider.getCredential(account.getIdToken(), null);
-
-                Intent intent = new Intent(this, AuthenticationService.class);
-                intent.setAction(AuthenticationService.ACTION_GOOGLE_LOGIN);
-                intent.putExtra(AuthenticationService.EXTRA_GOOGLE_CREDENTIAL, credential);
-                startService(intent);
-
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately.
-                Log.w(TAG, "Google sign in failed", e);
-            }
-        }*/
     }
 }
 
